@@ -7,4 +7,4 @@ content_file = open(topic+'.content.txt', 'w', encoding='utf-8')
 for i in json.load(open(sys.argv[1], 'r', encoding='utf-8'))['articles']:
 	if i.get('article_title', '')!=None and '[黑特]' in i.get('article_title', '') and 'R' not in i.get('article_title', ''):
 		title_file.write(i.get('article_title', '').replace('\n', '') + '\n')
-		list(map(lambda x:content_file.write(x + '\n'), i.get('content', '').replace('\n', '').split()))
+		f.write(i.get('content', '').replace('\n', '') + '\n')
