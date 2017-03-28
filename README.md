@@ -4,22 +4,29 @@
 期望大家都能夠共享自己的Training Data  
 讓 Sentiment Analysis 能更進一步~
 
-## Models語料大小
+## 所有語料大小：
 
-* pos.txt：309163筆，44M
-* neg.txt：320456筆，15M
+* 正面情緒：約有309163筆，44M
+* 負面情緒：約有320456筆，15M
 
-## Models成份
-以下資料皆濾掉標題包含 `[公告]` 的文章
-* `pos.txt` 正面情緒的model，包含：  
-  * adulation版：標題 + 內文
-  * dreams-wish版：標題 + 內文
-  * happy版：標題 + 內文（每一句都斷句）
-  * kindness版：標題 + 內文裡面的`好人行為`區段的文字
-  * luchky版：標題
-* `neg.txt` 負面情緒的model，包含：  
-  * broken-heart版：標題 + 內文
-  * HatePolitics版：標題 + 內文（只有包含黑特且不包含RE的才納入）
-  * pity版：標題 + 內文
-  * sad版：標題 + 內文（每一句都斷句）
-  * sorry版：標題 + 內文
+## 訓練好的Model：
+
+1. 政治版Model：
+  * 成份：
+    以下資料皆濾掉標題包含 `[公告]` 的文章
+    * `pos.txt` 正面情緒的model，將下列版的內容做shuffle，包含：  
+      * adulation版：標題 + 內文
+      * dreams-wish版：標題 + 內文
+      * happy版：標題 + 內文
+      * kindness版：標題 + 內文裡面的`好人行為`區段的文字
+      * luchky版：標題
+    * `neg.txt` 負面情緒的model，包含：  
+      * HatePolitics版：標題 + 內文（只有包含黑特且不包含RE的才納入）
+  * 大小：
+    * pos.txt：13222筆
+    * neg.txt：13222筆
+
+## 產生出資料給 `Swinger`
+
+`python text2json.py positive的檔名 negative的檔名`：會自動把一行一行的語料，斷詞段好給Swinger當input data
+
