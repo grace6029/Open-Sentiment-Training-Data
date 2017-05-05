@@ -4,6 +4,7 @@ import jieba.posseg as pseg
 conf = pyspark.SparkConf().setAll([('spark.driver.memory', '30g'), ('spark.driver.host', '172.17.0.21'), ('spark.app.id', 'local-1492693477461'), ('spark.rdd.compress', 'True'), ('spark.serializer.objectStreamReset', '100'), ('spark.master', 'local[*]'), ('spark.executor.id', 'driver'), ('spark.submit.deployMode', 'client'), ('spark.driver.port', '39274'), ('spark.app.name', 'PySparkShell')])
 sc = pyspark.SparkContext(conf=conf)
 stopwords = json.load(open('stopwords.json', 'r'))
+politics = json.load(open('政治類stopwords.擴充.json', 'r'))
 jieba.load_userdict(os.path.join('dictionary', 'dict.txt.big.txt'))
 jieba.load_userdict(os.path.join("dictionary", "NameDict_Ch_v2"))
 
@@ -11,7 +12,7 @@ def removeStopWords(sentence):
 	def condition(x):
 		x = list(x)
 		word, flag = x[0], x[1]
-		if len(word) > 1 and flag!='eng' and flag != 'm' and flag !='mq' and word not in stopwords:
+		if len(word) > 1 and flag!='eng' and flag != 'm' and flag !='mq' and word not in stopwords and word not in politics:
 			return True
 		return False
 
