@@ -18,14 +18,9 @@ def removeStopWords(sentence):
 	result = filter(condition, pseg.cut(sentence))
 	result = map(lambda x:list(x)[0], result)
 	return list(result)
-# with open(sys.argv[1], 'r') as f:
-# 	result = list(map(removeStopWords, f))
-# 	ff = open('p.json', 'w')
-# 	json.dump(result, ff)
-# 	ff.close()
 
 t = sc.textFile(sys.argv[1], 20)
 result = t.map(removeStopWords).collect()
-ff = open(sys.argv[2], 'w')
-json.dump(result, ff)
-ff.close()
+
+with open(sys.argv[2], 'w') as f:
+	json.dump(result, ff)
