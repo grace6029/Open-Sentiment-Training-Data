@@ -28,4 +28,5 @@
 
 ## 產生出資料給 `Swinger`
 
-`python text2json.py positive的檔名 negative的檔名`：會自動把一行一行的語料，斷詞段好給Swinger當input data
+`python text2json.py positive的檔名(文檔，以一句一句為單位) positive.json（為output檔案的檔名） True/False(若為True就代表要把stopword濾掉
+)`：會自動把一行一行的語料，斷詞段好給Swinger當input data
