@@ -23,4 +23,4 @@ t = sc.textFile(sys.argv[1], 20)
 result = t.map(removeStopWords).collect()
 
 with open(sys.argv[2], 'w') as f:
-	json.dump(result, ff)
+	json.dump(result, f)
