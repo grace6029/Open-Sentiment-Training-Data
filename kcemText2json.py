@@ -4,7 +4,7 @@ stopwords = json.load(open('stopwords.json', 'r'))
 jieba.load_userdict(os.path.join('dictionary', 'dict.txt.big.txt'))
 jieba.load_userdict(os.path.join("dictionary", "NameDict_Ch_v2"))
 
-def removeStopWords(sentence, rmstop=sys.argv[3]):
+def removeStopWords(key_and_value, rmstop=sys.argv[3]):
 	def condition(x):
 		x = list(x)
 		word, flag = x[0], x[1]
@@ -12,17 +12,20 @@ def removeStopWords(sentence, rmstop=sys.argv[3]):
 			return True
 		return False
 
-	sentence, label = sentence.rsplit(' ', 1)
+	key, value = key_and_value
 	if rmstop == 'True':
-		result = filter(condition, pseg.cut(sentence))
-		result = list(map(lambda x:list(x)[0], result))
+		key = filter(condition, pseg.cut(key))
+		key = list(map(lambda x:list(x)[0], key))
+		value = filter(condition, pseg.cut(value))
+		value = list(map(lambda x:list(x)[0], value))
 	else:
-		result = jieba.lcut(sentence)
-		label = jieba.lcut(label.replace('\n', '').strip())
-	return {'data':result, 'label':label}
+		key = jieba.lcut(key)
+		value = jieba.lcut(value.replace('\n', '').strip())
+	return {'key':key, 'value':value}
 
 with open(sys.argv[1], 'r') as f:
-	result = list(map(removeStopWords, f))
+	f = json.load(f)
+	result = list(map(removeStopWords, f.items()))
 
 with open(sys.argv[2], 'w') as f:
 	json.dump(result, f)
